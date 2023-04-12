@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- mt means margin top -->
+        <div class="container mt-5 col-6">
+            <!-- button --> 
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Chapter Name" aria-label="Recipient's username"
+                    aria-describedby="button-addon2">
+                <button id="add_btn" class="btn btn-outline-success" type="button" id="button-addon2">Add</button>
+            </div>
+            <!-- list -->
+            <ul id="parentList" class="list-group">
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <h3 class="flex-grow-1"> Chapter 1</h3>
+                    <button class="btn btn-danger mx-3" onclick="edit_chap(this)">Edit</button>
+                    <button class="btn btn-dark" onclick="removeChap(this)">Remove</button>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+
+        let addbtn = document.getElementById('add_btn');
+        addbtn.addEventListener('click', add_chap);
+        let parentList = document.getElementById('parentList');
+        function add_chap(e) {
+            if(parentList.children[0].className == "emptymsg"){
+               parentList.children[0].remove();
+            }
+            // .children[0]
+
+            // ham text save krrhy hy to butn ky previous element ko acces kiya jis me text hy 
+           let store_text = e.currentTarget.previousElementSibling.value;
+            // add new list
+            let newList = document.createElement('li');
+
+            //newList.classList.add('list-group-item'); add class because for styling
+            newList.className = "list-group-item d-flex justify-content-between";
+            newList.innerHTML = `  <h3 class="flex-grow-1">${store_text}</h3>
+                    <button class="btn btn-danger mx-3"  onclick="edit_chap(this)" >Edit</button>
+                    <button class="btn btn-dark" onclick="removeChap(this)"  >Remove</button>`
+
+            // yaha tk hamny text save kiya or new list bnai jis me text show hoga but abhi tk ye console pr hi dekhy ga page pr display nai hoga q ky han ny anhi tk dom nai kiya abh kry gy
+  
+            
+            parentList.appendChild(newList);
+        }
+        function removeChap(currelement){
+            currelement.parentElement.remove();
+            let parentList = document.getElementById('parentList');
+            if(parentList.children.length <=0){
+                let emptyMsg = document.createElement("h3");
+                emptyMsg.classList.add("emptymsg") // for checking if create then alert msg shout not display
+                emptyMsg.textContent = "Nothing is here. Please Add Something";
+                // emptyMsg.classList.add('list-group-item')
+                parentList.appendChild(emptyMsg);
+            }
+        }
+
+        function edit_chap(currelement){
+              if(currelement.textContent=="Done"){
+            currelement.textContent = "Edit";
+            let store_text=currelement.previousElementSibling.value;
+            let currHeading = document.createElement('h3');
+            currHeading.className="flex-grow-1"; 
+            currHeading.textContent= store_text;
+            currelement.parentElement.replaceChild(currHeading,currelement.previousElementSibling)
+
+              }else{
+
+            currelement.textContent = "Done";
+            let store_text=currelement.previousElementSibling.textContent;
+            let currinput = document.createElement('input'); 
+            currinput.type="text";
+            currinput.placeholder="Chapter name"
+            currinput.className = "form-control";
+            currinput.value = store_text;
+            // add this to dom!
+            currelement.parentElement.replaceChild(currinput,currelement.previousElementSibling)
+
+
+
+              }
+
+        }
+    </script>
+</body>
+
+</html>

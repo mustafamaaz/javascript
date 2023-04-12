@@ -1,0 +1,35 @@
+body{
+    padding: 20px 20px 20px;
+}
+
+button{
+    background-color: #5e86db;  
+    color: white;
+    padding: 13px 40px 13px;
+    margin-right: 40px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    
+}
+.sec_but{
+    padding: 30px 40px 50px;
+    background-color: #5e86db;  
+    color: white;
+    padding: 13px 40px 13px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.sec_but:hover{
+    color: rgb(46, 42, 42);
+    background-color: #496dbb;
+}
+
+button:hover{
+    color: rgb(46, 42, 42);
+    background-color: #496dbb;
+}
